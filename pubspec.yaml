@@ -41,6 +41,16 @@ dependencies:
   smooth_page_indicator: ^1.0.0+2
   google_fonts: ^4.0.3
   http: ^0.13.5
+  flutter_facebook_auth: ^5.0.8
+  image_picker: ^0.8.5
+  google_sign_in: ^5.4.2
+  get: ^4.6.5
+  get_storage: ^2.0.3
+  lottie: ^2.0.0
+  flutter_slidable: ^3.0.0
+  font_awesome_flutter: ^10.4.0
+  unicons: ^2.1.1
+  intl: ^0.18.1
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -65,11 +75,8 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-     - images/img_3.png
-     - images/img.png
-     - images/img_1.png
-     - images/img_2.png
-     - images/logoEmail.png
+     - images/
+
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

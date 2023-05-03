@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">pfe app</string>
+
+    <string name="facebook_app_id">5587752241324159</string>
+    <string name="fb_login_protocol_scheme">fb5587752241324159</string>
+    <string name="facebook_client_token">dc69270f98a526d1956993fd794ec589</string>
+</resources>
