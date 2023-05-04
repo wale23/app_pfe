@@ -4,6 +4,9 @@ import 'package:app_pfe/models/ApiResponse.dart';
 import 'package:app_pfe/models/User.dart';
 import 'package:app_pfe/services/api_constants.dart';
 import 'package:app_pfe/services/call_api.dart';
+import 'package:app_pfe/views/auth/sign_in/SignIn.dart' as signin;
+import 'package:flutter/cupertino.dart';
+import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 
@@ -42,7 +45,7 @@ class AuthServices {
     try {
       var body = jsonEncode(user.toJson());
       http.Response response = await CallApi().postData(ApiConstants.login, body);
-      var result = jsonDecode(response.body);
+      var result = jsonDecode(utf8.decode(response.bodyBytes));
 
       if (response.statusCode == 200) {
         User user = User.fromJson(result);
@@ -120,5 +123,10 @@ class AuthServices {
       apiResponse.responseMessage = e.toString();
       return apiResponse;
     }
+  }
+
+  logOut(BuildContext context) {
+    GetStorage().remove("user");
+    Get.to(signin.SignIn());
   }
 }

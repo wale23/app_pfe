@@ -1,12 +1,13 @@
 import 'package:app_pfe/models/reclamation.dart';
 import 'package:app_pfe/ressources/dimensions/constants.dart';
 import 'package:app_pfe/services/reclamations_services.dart';
-import 'package:app_pfe/views/user/add_reclamation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
 import 'package:unicons/unicons.dart';
+
+import 'reclamation_details.dart';
 
 class ArchivedReclamations extends StatefulWidget {
   const ArchivedReclamations({Key? key}) : super(key: key);
@@ -98,20 +99,6 @@ class _ArchivedReclamationsState extends State<ArchivedReclamations> {
                     color: Colors.green,
                   ),
                 ),
-          actions: [
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20),
-              child: IconButton(
-                onPressed: () {
-                  Get.to(AddReclamation());
-                },
-                icon: Icon(
-                  Icons.add,
-                  color: Colors.green,
-                ),
-              ),
-            )
-          ],
           title: multiSelection
               ? TextButton(
                   child: Text("Annuler"),
@@ -153,6 +140,8 @@ class _ArchivedReclamationsState extends State<ArchivedReclamations> {
                                   idsToDelete.add(reclamations[index].id!);
                                 }
                                 setState(() {});
+                              } else {
+                                Get.to(ReclamationDetails(reclamation: reclamations[index]));
                               }
                             },
                             onLongPress: () {
@@ -218,9 +207,15 @@ class _ArchivedReclamationsState extends State<ArchivedReclamations> {
                                                 ),
                                                 Row(
                                                   children: [
-                                                    Padding(
-                                                      padding: const EdgeInsets.all(4.0),
-                                                      child: Text('lawrene'),
+                                                    Text(
+                                                      "Priorité : ${reclamations[index].priority}",
+                                                      style: TextStyle(
+                                                        color: reclamations[index].priority == "faible"
+                                                            ? Colors.green
+                                                            : (reclamations[index].priority == "moyenne"
+                                                                ? Colors.blueAccent
+                                                                : Colors.red),
+                                                      ),
                                                     ),
                                                     Padding(
                                                       padding: const EdgeInsets.all(8.0),
@@ -244,13 +239,20 @@ class _ArchivedReclamationsState extends State<ArchivedReclamations> {
                                                     ),
                                                     Padding(
                                                       padding: const EdgeInsets.all(4.0),
-                                                      child: Text('Tlili'),
+                                                      child: Text("${reclamations[index].user!.full_name}"),
                                                     ),
-                                                    Row(
-                                                      children: [
-                                                        Text(reclamations[index].status!),
-                                                      ],
-                                                    ),
+                                                    Padding(
+                                                        padding: EdgeInsets.symmetric(horizontal: 20),
+                                                        child: Text(
+                                                          "${reclamations[index].status}",
+                                                          style: TextStyle(
+                                                            color: reclamations[index].status == "En cours"
+                                                                ? Colors.green
+                                                                : (reclamations[index].status == "Aucune"
+                                                                    ? Colors.blueAccent
+                                                                    : Colors.red),
+                                                          ),
+                                                        )),
                                                   ],
                                                 ),
                                               ],

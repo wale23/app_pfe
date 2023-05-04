@@ -107,7 +107,7 @@ class _MyAllReclamationsState extends State<MyAllReclamationsAdmin> {
                                             backgroundColor: Colors.red.withOpacity(0.7),
                                             foregroundColor: Colors.white,
                                             icon: UniconsLine.ticket,
-                                            label: 'Commencer',
+                                            label: 'Ouvrir',
                                           ),
                                         ],
                                       ),
@@ -159,9 +159,15 @@ class _MyAllReclamationsState extends State<MyAllReclamationsAdmin> {
                                                       ),
                                                       Row(
                                                         children: [
-                                                          Padding(
-                                                            padding: const EdgeInsets.all(4.0),
-                                                            child: Text('lawrene'),
+                                                          Text(
+                                                            "Priorité : ${reclamations[index].priority}",
+                                                            style: TextStyle(
+                                                              color: reclamations[index].priority == "faible"
+                                                                  ? Colors.green
+                                                                  : (reclamations[index].priority == "moyenne"
+                                                                      ? Colors.blueAccent
+                                                                      : Colors.red),
+                                                            ),
                                                           ),
                                                           Padding(
                                                             padding: const EdgeInsets.all(8.0),
@@ -186,13 +192,20 @@ class _MyAllReclamationsState extends State<MyAllReclamationsAdmin> {
                                                           ),
                                                           Padding(
                                                             padding: const EdgeInsets.all(4.0),
-                                                            child: Text('${reclamations[index].user!.full_name}'),
+                                                            child: Text("${reclamations[index].user!.full_name}"),
                                                           ),
-                                                          Row(
-                                                            children: [
-                                                              Text(reclamations[index].status!),
-                                                            ],
-                                                          ),
+                                                          Padding(
+                                                              padding: EdgeInsets.symmetric(horizontal: 20),
+                                                              child: Text(
+                                                                "${reclamations[index].status}",
+                                                                style: TextStyle(
+                                                                  color: reclamations[index].status == "En cours"
+                                                                      ? Colors.green
+                                                                      : (reclamations[index].status == "Aucune"
+                                                                          ? Colors.blueAccent
+                                                                          : Colors.red),
+                                                                ),
+                                                              )),
                                                         ],
                                                       ),
                                                     ],
@@ -307,9 +320,15 @@ class _MyAllReclamationsState extends State<MyAllReclamationsAdmin> {
                                                       ),
                                                       Row(
                                                         children: [
-                                                          Padding(
-                                                            padding: const EdgeInsets.all(4.0),
-                                                            child: Text('lawrene'),
+                                                          Text(
+                                                            "Priorité : ${reclamations[index].priority}",
+                                                            style: TextStyle(
+                                                              color: reclamations[index].priority == "faible"
+                                                                  ? Colors.green
+                                                                  : (reclamations[index].priority == "moyenne"
+                                                                      ? Colors.blueAccent
+                                                                      : Colors.red),
+                                                            ),
                                                           ),
                                                           Padding(
                                                             padding: const EdgeInsets.all(8.0),
@@ -334,13 +353,20 @@ class _MyAllReclamationsState extends State<MyAllReclamationsAdmin> {
                                                           ),
                                                           Padding(
                                                             padding: const EdgeInsets.all(4.0),
-                                                            child: Text('${reclamations[index].user!.full_name}'),
+                                                            child: Text("${reclamations[index].user!.full_name}"),
                                                           ),
-                                                          Row(
-                                                            children: [
-                                                              Text(reclamations[index].status!),
-                                                            ],
-                                                          ),
+                                                          Padding(
+                                                              padding: EdgeInsets.symmetric(horizontal: 20),
+                                                              child: Text(
+                                                                "${reclamations[index].status}",
+                                                                style: TextStyle(
+                                                                  color: reclamations[index].status == "En cours"
+                                                                      ? Colors.green
+                                                                      : (reclamations[index].status == "Aucune"
+                                                                          ? Colors.blueAccent
+                                                                          : Colors.red),
+                                                                ),
+                                                              )),
                                                         ],
                                                       ),
                                                     ],
@@ -418,9 +444,15 @@ class _MyAllReclamationsState extends State<MyAllReclamationsAdmin> {
                                                     ),
                                                     Row(
                                                       children: [
-                                                        Padding(
-                                                          padding: const EdgeInsets.all(4.0),
-                                                          child: Text('lawrene'),
+                                                        Text(
+                                                          "Priorité : ${reclamations[index].priority}",
+                                                          style: TextStyle(
+                                                            color: reclamations[index].priority == "faible"
+                                                                ? Colors.green
+                                                                : (reclamations[index].priority == "moyenne"
+                                                                    ? Colors.blueAccent
+                                                                    : Colors.red),
+                                                          ),
                                                         ),
                                                         Padding(
                                                           padding: const EdgeInsets.all(8.0),
@@ -444,13 +476,20 @@ class _MyAllReclamationsState extends State<MyAllReclamationsAdmin> {
                                                         ),
                                                         Padding(
                                                           padding: const EdgeInsets.all(4.0),
-                                                          child: Text('${reclamations[index].user!.full_name}'),
+                                                          child: Text("${reclamations[index].user!.full_name}"),
                                                         ),
-                                                        Row(
-                                                          children: [
-                                                            Text(reclamations[index].status!),
-                                                          ],
-                                                        ),
+                                                        Padding(
+                                                            padding: EdgeInsets.symmetric(horizontal: 20),
+                                                            child: Text(
+                                                              "${reclamations[index].status}",
+                                                              style: TextStyle(
+                                                                color: reclamations[index].status == "En cours"
+                                                                    ? Colors.green
+                                                                    : (reclamations[index].status == "Aucune"
+                                                                        ? Colors.blueAccent
+                                                                        : Colors.red),
+                                                              ),
+                                                            )),
                                                       ],
                                                     ),
                                                   ],

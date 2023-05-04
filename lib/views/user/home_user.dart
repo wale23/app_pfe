@@ -1,4 +1,5 @@
 import 'package:app_pfe/views/user/my_reclamations_view.dart';
+import 'package:app_pfe/views/user/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:unicons/unicons.dart';
 
@@ -15,9 +16,7 @@ class _HomeAdminState extends State<HomeUser> {
     Center(
       child: Text("notifications"),
     ),
-    Center(
-      child: Text("profil"),
-    ),
+    ProfileUser()
   ];
   int index = 0;
 

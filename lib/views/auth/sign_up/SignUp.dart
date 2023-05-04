@@ -51,7 +51,6 @@ class _signUpState extends State<SignUp> {
                   ),
                   InputField(label: "Nom et prénom", textInputType: TextInputType.text, controller: fullNameController),
                   InputField(label: "Numéro portable", textInputType: TextInputType.number, controller: phoneController),
-                  InputField(label: "Societé", textInputType: TextInputType.text, controller: companyController),
                   InputField(label: "Email", textInputType: TextInputType.emailAddress, controller: emailController),
                   InputField(label: "Mot de passe", textInputType: TextInputType.visiblePassword, controller: passwordController),
                   loading
@@ -75,6 +74,7 @@ class _signUpState extends State<SignUp> {
                                     phone_number: phoneController.text,
                                     email: emailController.text,
                                     password: passwordController.text,
+                                    type: "normal",
                                     role_id: 2,
                                   ))
                                       .then((value) {
@@ -134,6 +134,7 @@ class _signUpState extends State<SignUp> {
                                             company: null,
                                             phone_number: null,
                                             password: null,
+                                            type: "google",
                                             email: value.email,
                                             role_id: 2))
                                     .then((value) {
@@ -171,6 +172,7 @@ class _signUpState extends State<SignUp> {
                                             company: null,
                                             phone_number: null,
                                             password: null,
+                                            type: "facebook",
                                             email: value.email,
                                             role_id: 2))
                                     .then((value) {

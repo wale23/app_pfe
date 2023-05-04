@@ -6,8 +6,9 @@ class User {
   final String? company;
   final String? phone_number;
   final int? role_id;
+  final String? type;
 
-  User({this.email, this.full_name, this.company, this.phone_number, this.role_id, this.id, this.password});
+  User({this.email, this.full_name, this.company, this.phone_number, this.role_id, this.id, this.password, this.type});
 
   factory User.fromJson(Map<String, dynamic> json) {
     /* if (json['displayName'] != null) {
@@ -31,6 +32,7 @@ class User {
       company: json["company"],
       phone_number: json["phone_number"],
       role_id: json["role_id"],
+      type: json["type"],
     );
   }
 
@@ -42,5 +44,6 @@ class User {
         "phone_number": phone_number,
         "password": password,
         "role_id": role_id,
+        "type": type,
       };
 }

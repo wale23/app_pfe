@@ -2,9 +2,7 @@ import 'dart:io';
 
 import 'package:app_pfe/ressources/dimensions/constants.dart';
 import 'package:app_pfe/services/reclamations_services.dart';
-import 'package:app_pfe/views/widgets/input_field.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
 class AddReclamation extends StatefulWidget {
@@ -15,9 +13,11 @@ class AddReclamation extends StatefulWidget {
 }
 
 class _AddReclamationState extends State<AddReclamation> {
+  String priority = "moyenne";
+  String dep = "stock";
+
   TextEditingController subjectController = TextEditingController();
   TextEditingController descController = TextEditingController();
-  TextEditingController priority = TextEditingController();
   List<File> _selectedImages = [];
   final _formKey = GlobalKey<FormState>();
   bool loading = false;
@@ -77,10 +77,49 @@ class _AddReclamationState extends State<AddReclamation> {
     }
   }
 
+  Widget field({required int lines, required TextEditingController controller, required String label}) {
+    return Container(
+      decoration: BoxDecoration(border: Border(top: BorderSide(color: Colors.grey))),
+      child: TextFormField(
+        maxLines: lines != null ? lines : 1,
+        style: TextStyle(fontSize: 18),
+        controller: controller,
+        validator: (value) {
+          if (value!.isEmpty) {
+            return "Champ obligatoire";
+          } else if (label == "Email") {
+            bool emailValid = RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(value);
+            if (!emailValid) {
+              return "Format ivalide d'email";
+            }
+          }
+        },
+        cursorColor: Colors.black,
+        decoration: InputDecoration(
+          suffixIcon: Icon(Icons.arrow_right),
+          filled: true,
+          fillColor: Colors.white,
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(1),
+            borderSide: BorderSide(
+              color: Colors.transparent,
+            ),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(1),
+            borderSide: BorderSide(
+              color: Colors.transparent,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Color(0xfffafafa),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
           _showOptions(context);
@@ -98,11 +137,11 @@ class _AddReclamationState extends State<AddReclamation> {
                       loading = true;
                     });
                     ReclamationsServices.createReclamation(
-                        subjectController.text, descController.text, int.tryParse(priority.text)!, _selectedImages);
+                        subjectController.text, descController.text, priority, dep, _selectedImages);
                     setState(() {
                       descController.clear();
                       subjectController.clear();
-                      priority.clear();
+
                       loading = false;
                     });
                   }
@@ -112,7 +151,7 @@ class _AddReclamationState extends State<AddReclamation> {
         elevation: 0.5,
         leading: IconButton(
           onPressed: () {
-            Get.back();
+            Navigator.pop(context);
           },
           icon: Icon(
             Icons.arrow_back_ios,
@@ -129,17 +168,194 @@ class _AddReclamationState extends State<AddReclamation> {
               key: _formKey,
               child: Column(
                 children: [
-                  InputField(label: "Sujet", textInputType: TextInputType.text, controller: subjectController),
-                  InputField(
-                    label: "Priorité",
-                    textInputType: TextInputType.number,
-                    controller: priority,
+                  Row(
+                    children: [
+                      Expanded(child: Text("Sujet : ")),
+                      Expanded(
+                        flex: 2,
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(horizontal: Constants.screenWidth * 0.01),
+                          child: field(label: "Sujet", controller: subjectController, lines: 1),
+                        ),
+                      ),
+                    ],
                   ),
-                  InputField(
-                    label: "Description",
-                    textInputType: TextInputType.text,
-                    controller: descController,
-                    lines: 3,
+                  Row(
+                    children: [
+                      Expanded(child: Text("Description : ")),
+                      Expanded(
+                        flex: 2,
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(horizontal: Constants.screenWidth * 0.01),
+                          child: field(label: "Sujet", controller: descController, lines: 3),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Expanded(child: Text("Priorité : ")),
+                      Expanded(
+                        flex: 2,
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(horizontal: Constants.screenWidth * 0.01),
+                          child: Container(
+                            height: Constants.screenHeight * 0.08,
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                              border: Border(
+                                  top: BorderSide(
+                                    color: Colors.grey,
+                                  ),
+                                  bottom: BorderSide(
+                                    color: Colors.grey,
+                                  )),
+                              color: Colors.white,
+                            ),
+                            child: DropdownButton<String>(
+                              isExpanded: true,
+                              value: priority,
+                              underline: SizedBox(
+                                height: 0,
+                              ),
+                              items: const [
+                                DropdownMenuItem(
+                                  child: Padding(
+                                    padding: EdgeInsets.all(8.0),
+                                    child: Text(
+                                      'Faible',
+                                      style: TextStyle(fontSize: 14, fontStyle: FontStyle.italic, color: Colors.black38),
+                                    ),
+                                  ),
+                                  value: 'faible',
+                                ),
+                                DropdownMenuItem(
+                                  child: Padding(
+                                    padding: EdgeInsets.all(8.0),
+                                    child: Text(
+                                      'Moyenne',
+                                      style: TextStyle(fontSize: 14, fontStyle: FontStyle.italic, color: Colors.black38),
+                                    ),
+                                  ),
+                                  value: 'moyenne',
+                                ),
+                                DropdownMenuItem(
+                                  child: Padding(
+                                    padding: EdgeInsets.all(8.0),
+                                    child: Text(
+                                      'Haute',
+                                      style: TextStyle(fontSize: 14, fontStyle: FontStyle.italic, color: Colors.black38),
+                                    ),
+                                  ),
+                                  value: 'haute',
+                                ),
+                              ],
+                              onChanged: (value) {
+                                setState(() {
+                                  priority = value!;
+                                });
+                              },
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Expanded(child: Text("Département : ")),
+                      Expanded(
+                        flex: 2,
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(horizontal: Constants.screenWidth * 0.01),
+                          child: Container(
+                            height: Constants.screenHeight * 0.08,
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                              border: Border(
+                                  bottom: BorderSide(
+                                color: Colors.grey,
+                              )),
+                              color: Colors.white,
+                            ),
+                            child: DropdownButton<String>(
+                              isExpanded: true,
+                              value: dep,
+                              underline: SizedBox(
+                                height: 0,
+                              ),
+                              items: const [
+                                DropdownMenuItem(
+                                  child: Padding(
+                                    padding: EdgeInsets.all(8.0),
+                                    child: Text(
+                                      'Stock',
+                                      style: TextStyle(fontSize: 14, fontStyle: FontStyle.italic, color: Colors.black38),
+                                    ),
+                                  ),
+                                  value: 'stock',
+                                ),
+                                DropdownMenuItem(
+                                  child: Padding(
+                                    padding: EdgeInsets.all(8.0),
+                                    child: Text(
+                                      'Prod',
+                                      style: TextStyle(fontSize: 14, fontStyle: FontStyle.italic, color: Colors.black38),
+                                    ),
+                                  ),
+                                  value: 'prod',
+                                ),
+                                DropdownMenuItem(
+                                  child: Padding(
+                                    padding: EdgeInsets.all(8.0),
+                                    child: Text(
+                                      'Qualité',
+                                      style: TextStyle(fontSize: 14, fontStyle: FontStyle.italic, color: Colors.black38),
+                                    ),
+                                  ),
+                                  value: 'qualité',
+                                ),
+                                DropdownMenuItem(
+                                  child: Padding(
+                                    padding: EdgeInsets.all(8.0),
+                                    child: Text(
+                                      'Planning',
+                                      style: TextStyle(fontSize: 14, fontStyle: FontStyle.italic, color: Colors.black38),
+                                    ),
+                                  ),
+                                  value: 'planning',
+                                ),
+                                DropdownMenuItem(
+                                  child: Padding(
+                                    padding: EdgeInsets.all(8.0),
+                                    child: Text(
+                                      'Logistique',
+                                      style: TextStyle(fontSize: 14, fontStyle: FontStyle.italic, color: Colors.black38),
+                                    ),
+                                  ),
+                                  value: 'logistique',
+                                ),
+                                DropdownMenuItem(
+                                  child: Padding(
+                                    padding: EdgeInsets.all(8.0),
+                                    child: Text(
+                                      'Achat',
+                                      style: TextStyle(fontSize: 14, fontStyle: FontStyle.italic, color: Colors.black38),
+                                    ),
+                                  ),
+                                  value: 'achat',
+                                ),
+                              ],
+                              onChanged: (value) {
+                                setState(() {
+                                  dep = value!;
+                                });
+                              },
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                   Expanded(
                     child: GridView.builder(

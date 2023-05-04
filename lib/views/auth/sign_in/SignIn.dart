@@ -107,9 +107,7 @@ class _signInemailState extends State<SignIn> {
                                     AuthServices()
                                         .SignIn(
                                             user: User(
-                                      email: emailController.text,
-                                      password: passwordController.text,
-                                    ))
+                                                email: emailController.text, password: passwordController.text, type: "normal"))
                                         .then((value) {
                                       setState(() {
                                         loading = false;
@@ -170,31 +168,55 @@ class _signInemailState extends State<SignIn> {
                             IconButton(
                                 onPressed: () {
                                   GoogleAuthServices().getDataFromGoogle().then((value) {
-                                    AuthServices().SignIn(user: User(email: value.email)).then((value2) {
-                                      if (!value2.responseStatus!) {
-                                        AuthServices()
-                                            .SignUp(user: User(full_name: value.full_name, email: value.email, role_id: 2))
-                                            .then((value) {
-                                          if (value.responseStatus!) {
-                                            if (value.responseMessage == "2") {
+                                    if (value.full_name != null) {
+                                      AuthServices().SignIn(user: User(email: value.email, type: "google")).then((value2) {
+                                        if (!value2.responseStatus!) {
+                                          AuthServices()
+                                              .SignUp(
+                                                  user: User(
+                                                      full_name: value.full_name, email: value.email, role_id: 2, type: "google"))
+                                              .then((value) {
+                                            if (value.responseStatus!) {
+                                              if (value.responseMessage == "2") {
+                                                Get.to(HomeUser());
+                                              } else {
+                                                Get.to(HomeAdmin());
+                                              }
+                                            } else {
+                                              final snackBar = SnackBar(
+                                                content: Text(value.responseMessage!),
+                                                backgroundColor: (Colors.red),
+                                                action: SnackBarAction(
+                                                  label: 'fermer',
+                                                  textColor: Colors.white,
+                                                  onPressed: () {},
+                                                ),
+                                              );
+                                              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                                            }
+                                          });
+                                        } else {
+                                          if (value2.responseStatus!) {
+                                            if (value2.responseMessage == "2") {
                                               Get.to(HomeUser());
                                             } else {
                                               Get.to(HomeAdmin());
                                             }
-                                          } else {
-                                            // email use case
-                                          }
-                                        });
-                                      } else {
-                                        if (value2.responseStatus!) {
-                                          if (value2.responseMessage == "2") {
-                                            Get.to(HomeUser());
-                                          } else {
-                                            Get.to(HomeAdmin());
                                           }
                                         }
-                                      }
-                                    });
+                                      });
+                                    } else {
+                                      final snackBar = SnackBar(
+                                        content: Text("Compte invalide"),
+                                        backgroundColor: (Colors.red),
+                                        action: SnackBarAction(
+                                          label: 'fermer',
+                                          textColor: Colors.white,
+                                          onPressed: () {},
+                                        ),
+                                      );
+                                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                                    }
                                   });
                                 },
                                 icon: Image.asset(
@@ -203,31 +225,58 @@ class _signInemailState extends State<SignIn> {
                             IconButton(
                                 onPressed: () {
                                   FaceBookApis.getDataFromFacebook().then((value) {
-                                    AuthServices().SignIn(user: User(email: value.email)).then((value2) {
-                                      if (!value2.responseStatus!) {
-                                        AuthServices()
-                                            .SignUp(user: User(full_name: value.full_name, email: value.email, role_id: 2))
-                                            .then((value) {
-                                          if (value.responseStatus!) {
-                                            if (value.responseMessage == "2") {
+                                    if (value.full_name != null) {
+                                      AuthServices().SignIn(user: User(email: value.email, type: "facebook")).then((value2) {
+                                        if (!value2.responseStatus!) {
+                                          AuthServices()
+                                              .SignUp(
+                                                  user: User(
+                                                      full_name: value.full_name,
+                                                      email: value.email,
+                                                      role_id: 2,
+                                                      type: "facebook"))
+                                              .then((value) {
+                                            if (value.responseStatus!) {
+                                              if (value.responseMessage == "2") {
+                                                Get.to(HomeUser());
+                                              } else {
+                                                Get.to(HomeAdmin());
+                                              }
+                                            } else {
+                                              final snackBar = SnackBar(
+                                                content: Text(value.responseMessage!),
+                                                backgroundColor: (Colors.red),
+                                                action: SnackBarAction(
+                                                  label: 'fermer',
+                                                  textColor: Colors.white,
+                                                  onPressed: () {},
+                                                ),
+                                              );
+                                              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                                            }
+                                          });
+                                        } else {
+                                          if (value2.responseStatus!) {
+                                            if (value2.responseMessage == "2") {
                                               Get.to(HomeUser());
                                             } else {
                                               Get.to(HomeAdmin());
                                             }
-                                          } else {
-                                            // email use case
-                                          }
-                                        });
-                                      } else {
-                                        if (value2.responseStatus!) {
-                                          if (value2.responseMessage == "2") {
-                                            Get.to(HomeUser());
-                                          } else {
-                                            Get.to(HomeAdmin());
                                           }
                                         }
-                                      }
-                                    });
+                                      });
+                                    } else {
+                                      final snackBar = SnackBar(
+                                        content: Text("compte invalide"),
+                                        backgroundColor: (Colors.red),
+                                        action: SnackBarAction(
+                                          label: 'fermer',
+                                          textColor: Colors.white,
+                                          onPressed: () {},
+                                        ),
+                                      );
+                                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                                    }
                                   });
                                 },
                                 icon: Image.asset(

@@ -7,13 +7,13 @@ class GoogleAuthServices {
     try {
       SignOutGoogle();
       final data = await GoogleSignInApi.login();
-      print(data);
+      print("${data}here data");
       return User(
         full_name: data!.displayName,
         email: data.email,
       );
     } catch (e) {
-      print(e.toString());
+      print("error here" + e.toString());
       return User();
     }
   }

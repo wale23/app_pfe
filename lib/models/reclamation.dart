@@ -5,10 +5,11 @@ class Reclamation {
   int? id;
   String? status;
   String? subject;
-  int? priority;
+  String? priority;
+  String? dep;
   DateTime? date;
   String? description;
-  List? images;
+  List images;
   bool? archived;
   User? user;
   List<Comments>? comments;
@@ -19,9 +20,10 @@ class Reclamation {
     this.priority,
     this.date,
     this.description,
-    this.images,
+    required this.images,
     this.archived,
     this.user,
+    this.dep,
     this.comments,
   });
   factory Reclamation.fromJson(Map<String, dynamic> json) {
@@ -34,6 +36,7 @@ class Reclamation {
       description: json['description'],
       images: List<dynamic>.from(json['images']),
       archived: json['archived'],
+      dep: json['departement'],
       user: User.fromJson(json['user']),
       comments: json['comments'] == null ? [] : List<Comments>.from(json['comments']),
     );
@@ -47,6 +50,7 @@ class Reclamation {
       'date': date,
       'description': description,
       'images': images,
+      'departement': dep,
       'archived': archived,
       'user_id': user?.id,
       'comments': comments,

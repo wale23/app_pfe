@@ -107,15 +107,18 @@ class ReclamationsServices {
     }
   }
 
-  static Future createReclamation(String subject, String desc, int priority, List<File> images) async {
+  static Future createReclamation(String subject, String desc, String priority, String depa, List<File> images) async {
     if (images.isEmpty) {
       try {
+        print(priority);
+        print(depa);
         Map<String, dynamic> data = {
           "subject": subject,
           "user_id": GetStorage().read('user')['id'],
           "priority": priority,
           "description": desc,
           "subject": subject,
+          "departement": depa,
           "images": []
         };
         var body = jsonEncode(data);
@@ -145,9 +148,10 @@ class ReclamationsServices {
             Map<String, dynamic> data = {
               "subject": subject,
               "user_id": GetStorage().read('user')['id'],
-              "priorirty": priority,
+              "priority": priority,
               "description": desc,
               "subject": subject,
+              "departement": depa,
               "images": jsonDecode(responseBody)
             };
             var body = jsonEncode(data);

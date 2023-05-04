@@ -140,75 +140,81 @@ class _ReclamationsViewState extends State<MyReclamationsView> {
               padding: const EdgeInsets.all(8.0),
               child: Container(
                 decoration: BoxDecoration(color: Colors.grey.withOpacity(0.05), borderRadius: BorderRadius.circular(5)),
-                child: ExpansionTile(
-                  leading: Icon(Icons.list_alt),
-                  title: Text('Toutes catégories'),
-                  children: <Widget>[
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        ListTile(
-                          title: Text('Les reclamations en cours'),
-                          onTap: () {
-                            Get.to(InProgressReclamations());
-                          },
-                        ),
-                        Container(
-                          color: Colors.black12,
-                          height: 2,
-                          width: Constants.screenWidth * 0.9,
-                        )
-                      ],
+                child: Theme(
+                  data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
+                  child: ExpansionTile(
+                    leading: Icon(Icons.list_alt),
+                    title: Text(
+                      'Toutes catégories',
+                      style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
                     ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        ListTile(
-                          onTap: () {
-                            Get.to(FinishedReclamations());
-                          },
-                          title: Text('Les reclamations fermées'),
-                        ),
-                        Container(
-                          color: Colors.black12,
-                          height: 2,
-                          width: Constants.screenWidth * 0.9,
-                        )
-                      ],
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        ListTile(
-                          onTap: () {
-                            Get.to(PendingReclamations());
-                          },
-                          title: Text('Les reclamations en attent'),
-                        ),
-                        Container(
-                          color: Colors.black12,
-                          height: 2,
-                          width: Constants.screenWidth * 0.9,
-                        )
-                      ],
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        ListTile(
-                          onTap: () {
-                            Get.to(ArchivedReclamations());
-                          },
-                          title: Text('Les reclamations archivés'),
-                        ),
-                        Container(
-                          color: Colors.black12,
-                          height: 2,
-                          width: Constants.screenWidth * 0.9,
-                        )
-                      ],
-                    ),
-                  ],
+                    children: <Widget>[
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          ListTile(
+                            title: Text('Les reclamations en cours'),
+                            onTap: () {
+                              Get.to(InProgressReclamations());
+                            },
+                          ),
+                          Container(
+                            color: Colors.black12,
+                            height: 2,
+                            width: Constants.screenWidth * 0.92,
+                          )
+                        ],
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          ListTile(
+                            onTap: () {
+                              Get.to(FinishedReclamations());
+                            },
+                            title: Text('Les reclamations fermées'),
+                          ),
+                          Container(
+                            color: Colors.black12,
+                            height: 2,
+                            width: Constants.screenWidth * 0.92,
+                          )
+                        ],
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          ListTile(
+                            onTap: () {
+                              Get.to(PendingReclamations());
+                            },
+                            title: Text('Les reclamations en attent'),
+                          ),
+                          Container(
+                            color: Colors.black12,
+                            height: 2,
+                            width: Constants.screenWidth * 0.92,
+                          )
+                        ],
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          ListTile(
+                            onTap: () {
+                              Get.to(ArchivedReclamations());
+                            },
+                            title: Text('Les reclamations archivés'),
+                          ),
+                          Container(
+                            color: Colors.black12,
+                            height: 2,
+                            width: Constants.screenWidth * 0.92,
+                          )
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
             )
