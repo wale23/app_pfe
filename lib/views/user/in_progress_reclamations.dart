@@ -86,8 +86,8 @@ class _InProgressReclamationsState extends State<InProgressReclamations> {
                     );
                   },
                   icon: Icon(
-                    Icons.close,
-                    color: Colors.black,
+                    Icons.more_horiz_rounded,
+                    color: Colors.green,
                   ))
               : IconButton(
                   onPressed: () {
@@ -99,15 +99,15 @@ class _InProgressReclamationsState extends State<InProgressReclamations> {
                   ),
                 ),
           title: multiSelection
-              ? TextButton(
-                  child: Text("Annuler"),
-                  onPressed: () {
-                    setState(() {
-                      multiSelection = false;
-                      idsToDelete.clear();
-                    });
-                  },
-                )
+              ? IconButton(
+            onPressed: () {
+              setState(() {
+                multiSelection = false;
+                idsToDelete.clear();
+              });
+            },
+            icon: Icon(Icons.close,color: Colors.green,),
+          )
               : Text(
                   "Reclamations en cours",
                   style: TextStyle(color: Colors.black54, fontSize: 15),
@@ -271,13 +271,13 @@ class _InProgressReclamationsState extends State<InProgressReclamations> {
                                                             Row(
                                                               children: [
                                                                 Text(
-                                                                  "Priorité : ${reclamations[index].priority}",
+                                                                  "${reclamations[index].priority}",
                                                                   style: TextStyle(
-                                                                    color: reclamations[index].priority == "faible"
-                                                                        ? Colors.green
-                                                                        : (reclamations[index].priority == "moyenne"
-                                                                            ? Colors.blueAccent
-                                                                            : Colors.red),
+                                                                    color: reclamations[index].priority == "moyenne"
+                                                                        ? Colors.orange
+                                                                        : (reclamations[index].priority == "Haute"
+                                                                        ? Colors.red
+                                                                        : Colors.green),
                                                                   ),
                                                                 ),
                                                                 Padding(

@@ -82,10 +82,6 @@ class ReclamationWidget extends StatelessWidget {
                           Row(
                             children: [
                               Padding(
-                                padding: const EdgeInsets.all(4.0),
-                                child: Text('lawrene'),
-                              ),
-                              Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Row(
                                   children: [

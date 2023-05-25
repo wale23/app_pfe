@@ -2,7 +2,7 @@ import 'package:app_pfe/views/user/my_reclamations_view.dart';
 import 'package:app_pfe/views/user/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:unicons/unicons.dart';
-
+import 'notifications.dart';
 class HomeUser extends StatefulWidget {
   const HomeUser({Key? key}) : super(key: key);
 
@@ -13,10 +13,8 @@ class HomeUser extends StatefulWidget {
 class _HomeAdminState extends State<HomeUser> {
   List pages = [
     MyReclamationsView(),
-    Center(
-      child: Text("notifications"),
-    ),
-    ProfileUser()
+    NotifUser(),
+    ProfileUser(),
   ];
   int index = 0;
 
@@ -26,6 +24,7 @@ class _HomeAdminState extends State<HomeUser> {
       body: pages[index],
       bottomNavigationBar: BottomNavigationBar(
         selectedItemColor: Colors.green,
+        unselectedItemColor: Colors.grey,
         currentIndex: index,
         onTap: (i) {
           setState(() {
@@ -33,6 +32,7 @@ class _HomeAdminState extends State<HomeUser> {
           });
         },
         items: [
+
           BottomNavigationBarItem(
             icon: new Icon(UniconsLine.ticket),
             label: 'Reclamations',
@@ -42,8 +42,8 @@ class _HomeAdminState extends State<HomeUser> {
             label: 'Notifications',
           ),
           BottomNavigationBarItem(
-            icon: new Icon(Icons.person),
-            label: 'Profile',
+            icon: new Icon(Icons.settings),
+            label: 'Paramètres',
           ),
         ],
       ),

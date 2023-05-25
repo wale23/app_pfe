@@ -2,6 +2,7 @@ import 'package:app_pfe/views/admin/profile.dart';
 import 'package:app_pfe/views/admin/reclamations_view.dart';
 import 'package:flutter/material.dart';
 import 'package:unicons/unicons.dart';
+import 'notifications.dart';
 
 class HomeAdmin extends StatefulWidget {
   const HomeAdmin({Key? key}) : super(key: key);
@@ -13,10 +14,8 @@ class HomeAdmin extends StatefulWidget {
 class _HomeAdminState extends State<HomeAdmin> {
   List pages = [
     AdminReclamationsView(),
-    Center(
-      child: Text("notifications"),
-    ),
-    ProfileAdmin()
+    NotifAdmin(),
+    ProfileAdmin(),
   ];
   int index = 0;
 
@@ -26,6 +25,7 @@ class _HomeAdminState extends State<HomeAdmin> {
       body: pages[index],
       bottomNavigationBar: BottomNavigationBar(
         selectedItemColor: Colors.green,
+        unselectedItemColor: Colors.grey,
         currentIndex: index,
         onTap: (i) {
           setState(() {
@@ -42,8 +42,8 @@ class _HomeAdminState extends State<HomeAdmin> {
             label: 'Notifications',
           ),
           BottomNavigationBarItem(
-            icon: new Icon(Icons.person),
-            label: 'Profile',
+            icon: new Icon(Icons.settings),
+            label: 'Paramètres',
           ),
         ],
       ),

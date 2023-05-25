@@ -3,7 +3,10 @@ import 'package:app_pfe/views/auth/sign_up/SignUp.dart';
 import 'package:app_pfe/views/widgets/button.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:lottie/lottie.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+
+import '../../ressources/dimensions/constants.dart';
 
 class HomePage extends StatelessWidget {
   PageController _controller = PageController();
@@ -20,28 +23,28 @@ class HomePage extends StatelessWidget {
             controller: _controller,
             children: const [
               Page1(
-                "images/img_3.png",
-                "Votre application. dans la paume de tes mains",
-                "Rendre les agents plus productifs."
-                    "Rendre les managers plus impactants."
-                    "Rendre les clients plus autonomes.",
+                "images/Message.json",
+                "Your App. In the palm of your hands",
+                "Make agents more productive."
+                    "Make managers more impactful."
+                    "Make customers more empowered.",
                 Colors.white,
               ),
               Page1(
-                "images/img.png",
-                "Modes de travail",
-                "Sachez quelle plainte nécessite votre intervention en ce moment. GPRO Desk organise automatiquement vos réclamations par date d'échéance ou par type de statut.",
+                "images/Complaint.json",
+                "Work Modes",
+                "Know which complaints need your attention right now. GPRO desk automatically organizes your complaints by due time or priority type.",
                 Colors.white,
               ),
               Page1(
-                "images/img_1.png",
-                "Affichage des conversations",
-                "Visualisez l'intégralité de la conversation de plainte sur un seul écran. La dernière réponse est affichée en haut, vous pouvez donc aller droit au but.",
+                "images/Wechat.json",
+                "Conversation View",
+                "See the entire complaints conversation on a single screen. The latest response is desplayed on top,so you can cut right to the chase.",
                 Colors.white,
               ),
               Page1(
-                "images/img_2.png",
-                "Vue du tableau de bord",
+                "images/Data Analysis.json",
+                "Dashboard View",
                 "",
                 Colors.white,
               ),
@@ -125,26 +128,23 @@ class Page1 extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            const SizedBox(height: 80.0),
-            Image.asset(image),
-            const SizedBox(
-              height: 15,
-            ),
+            Lottie.asset(image,),
             Text(
               heading,
               textAlign: TextAlign.center,
               style: const TextStyle(
-                fontSize: 23.9,
+                fontSize: 22,
                 fontWeight: FontWeight.bold,
                 color: Colors.black,
               ),
             ),
-            SizedBox(height: 8),
+            SizedBox(height: 20),
             Text(
               text,
               textAlign: TextAlign.center,
               style: const TextStyle(
-                fontSize: 23,
+                height: 1.2,
+                fontSize: 21,
                 fontWeight: FontWeight.w500,
                 color: Colors.grey,
               ),

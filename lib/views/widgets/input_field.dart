@@ -33,7 +33,7 @@ class _InputFieldState extends State<InputField> {
             } else if (widget.label == "Email") {
               bool emailValid = RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(value);
               if (!emailValid) {
-                return "Format ivalide d'email";
+                return "Format invalide d'email";
               }
             }
           },

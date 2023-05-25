@@ -67,6 +67,7 @@ class _MyAllReclamationsState extends State<MyAllReclamations> {
                                   }).then((value) {
                                     Navigator.pop(context);
                                     multiSelection = false;
+                                    idsToDelete.clear();
                                   });
                                 },
                                 leading: Icon(
@@ -87,8 +88,8 @@ class _MyAllReclamationsState extends State<MyAllReclamations> {
                     );
                   },
                   icon: Icon(
-                    Icons.close,
-                    color: Colors.black,
+                    Icons.more_horiz_rounded,
+                    color: Colors.green,
                   ))
               : IconButton(
                   onPressed: () {
@@ -100,15 +101,15 @@ class _MyAllReclamationsState extends State<MyAllReclamations> {
                   ),
                 ),
           title: multiSelection
-              ? TextButton(
-                  child: Text("Annuler"),
-                  onPressed: () {
-                    setState(() {
-                      multiSelection = false;
-                      idsToDelete.clear();
-                    });
-                  },
-                )
+              ? IconButton(
+            onPressed: () {
+              setState(() {
+                multiSelection = false;
+                idsToDelete.clear();
+              });
+            },
+            icon: Icon(Icons.close,color: Colors.green,),
+          )
               : Text(
                   "Tous les Reclamations",
                   style: TextStyle(color: Colors.black54, fontSize: 15),
@@ -144,7 +145,7 @@ class _MyAllReclamationsState extends State<MyAllReclamations> {
                           height: Constants.screenHeight * 0.04,
                           width: Constants.screenWidth * 0.1,
                           child: Icon(
-                            Icons.menu,
+                            Icons.arrow_outward,
                             color: pageIndex == 0 ? Colors.white : Colors.green,
                           ),
                         ),
@@ -159,7 +160,7 @@ class _MyAllReclamationsState extends State<MyAllReclamations> {
                         },
                         child: Container(
                           decoration: BoxDecoration(
-                              color: pageIndex == 1 ? Colors.green : Colors.white,
+                              color: pageIndex == 1 ? Colors.red : Colors.white,
                               border: Border.all(color: Colors.green),
                               borderRadius: BorderRadius.only(
                                 topRight: Radius.circular(5),
@@ -168,8 +169,8 @@ class _MyAllReclamationsState extends State<MyAllReclamations> {
                           height: Constants.screenHeight * 0.04,
                           width: Constants.screenWidth * 0.1,
                           child: Icon(
-                            UniconsLine.chart_line,
-                            color: pageIndex == 1 ? Colors.white : Colors.green,
+                            Icons.arrow_downward,
+                            color: pageIndex == 1 ? Colors.white : Colors.red,
                           ),
                         ),
                       ),
@@ -177,9 +178,9 @@ class _MyAllReclamationsState extends State<MyAllReclamations> {
                   ),
                 ),
                 pageIndex == 1
-                    ? Center(
-                        child: Text("Statistiques"),
-                      )
+                   ? Center(
+                      child: Text("Reclamations reçues"),
+                     )
                     : Expanded(
                         child: FutureBuilder(
                             future: ReclamationsServices().getReclamations(),
@@ -274,13 +275,13 @@ class _MyAllReclamationsState extends State<MyAllReclamations> {
                                                               Row(
                                                                 children: [
                                                                   Text(
-                                                                    "Priorité : ${reclamations[index].priority}",
+                                                                    "${reclamations[index].priority}",
                                                                     style: TextStyle(
-                                                                      color: reclamations[index].priority == "faible"
-                                                                          ? Colors.green
-                                                                          : (reclamations[index].priority == "moyenne"
-                                                                              ? Colors.blueAccent
-                                                                              : Colors.red),
+                                                                      color: reclamations[index].priority == "moyenne"
+                                                                          ? Colors.orange
+                                                                          : (reclamations[index].priority == "Haute"
+                                                                              ? Colors.red
+                                                                              : Colors.green),
                                                                     ),
                                                                   ),
                                                                   Padding(
