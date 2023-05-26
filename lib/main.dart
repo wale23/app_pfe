@@ -1,5 +1,6 @@
 import 'dart:io';
 
+/*from notif to master*/
 import 'package:app_pfe/views/splash_screen/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
