@@ -126,7 +126,7 @@ class _signUpState extends State<SignUp> {
                         IconButton(
                             onPressed: () {
                               GoogleAuthServices().getDataFromGoogle().then((value) {
-                                AuthServices()
+                                /*  AuthServices()
                                     .SignUp(
                                         user: User(
                                             full_name: value.full_name,
@@ -155,7 +155,7 @@ class _signUpState extends State<SignUp> {
                                     );
                                     ScaffoldMessenger.of(context).showSnackBar(snackBar);
                                   }
-                                });
+                                });*/
                               });
                             },
                             icon: Image.asset(

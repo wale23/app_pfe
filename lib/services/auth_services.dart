@@ -23,7 +23,7 @@ class AuthServices {
       var body = jsonEncode(user.toJson());
       http.Response response = await CallApi().postData(ApiConstants.register, body);
       var result = jsonDecode(response.body);
-
+      print("result : ${result}");
       if (response.statusCode == 200) {
         User user = User.fromJson(result);
         saveUserLocally(user);
@@ -35,6 +35,8 @@ class AuthServices {
       }
       return apiResponse;
     } catch (e) {
+      apiResponse.responseMessage = e.toString();
+      print(e.toString());
       apiResponse.responseStatus = false;
       return apiResponse;
     }
@@ -52,9 +54,6 @@ class AuthServices {
         saveUserLocally(user);
         apiResponse.responseMessage = user.role_id.toString();
         apiResponse.responseStatus = true;
-      } else if (response.statusCode == 400) {
-        apiResponse.responseMessage = result['error'];
-        apiResponse.responseStatus = false;
       } else {
         apiResponse.responseMessage = result['error'];
         apiResponse.responseStatus = false;
