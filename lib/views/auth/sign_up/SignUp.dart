@@ -6,7 +6,6 @@ import 'package:app_pfe/views/admin/home_admin.dart';
 import 'package:app_pfe/views/user/home_user.dart';
 import 'package:app_pfe/views/widgets/button.dart';
 import 'package:app_pfe/views/widgets/input_field.dart';
-import 'package:country_list_pick/country_list_pick.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -16,7 +15,7 @@ class SignUp extends StatefulWidget {
 }
 
 class _signUpState extends State<SignUp> {
-  CountryCode? _selectedCountry;
+
 
   final _formKey = GlobalKey<FormState>();
   bool passToggle = false;

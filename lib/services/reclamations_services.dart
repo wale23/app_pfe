@@ -13,6 +13,7 @@ import 'call_api.dart';
 class ReclamationsServices {
   var user = GetStorage().read('user');
 
+
   Future<List<Reclamation>> getReclamations([String? type]) async {
     try {
       dynamic url =
@@ -107,7 +108,7 @@ class ReclamationsServices {
     }
   }
 
-  static Future createReclamation(String subject, String desc, String priority, String depa, List<File> images) async {
+  static Future createReclamation(String subject, String desc, String priority, String depa, List<File> images ) async {
     if (images.isEmpty) {
       try {
         print(priority);
@@ -119,7 +120,8 @@ class ReclamationsServices {
           "description": desc,
           "subject": subject,
           "departement": depa,
-          "images": []
+          "images": [],
+
         };
         var body = jsonEncode(data);
         print(priority);
@@ -152,7 +154,7 @@ class ReclamationsServices {
               "description": desc,
               "subject": subject,
               "departement": depa,
-              "images": jsonDecode(responseBody)
+              "images": jsonDecode(responseBody),
             };
             var body = jsonEncode(data);
 

@@ -31,7 +31,6 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  country_list_pick: ^1.0.1+6
   crypto: ^3.0.2
   mysql1: ^0.20.0
 

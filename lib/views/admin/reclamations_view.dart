@@ -172,7 +172,7 @@ class _ReclamationsViewState extends State<AdminReclamationsView> {
                             onTap: () {
                               Get.to(PendingReclamationsAdmin());
                             },
-                            title: Text('Les reclamations en attent'),
+                            title: Text('Les reclamations en attente'),
                           ),
                           Container(
                             color: Colors.black12,

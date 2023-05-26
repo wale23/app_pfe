@@ -36,7 +36,7 @@ class _PendingReclamationsState extends State<PendingReclamationsAdmin> {
             ),
           ),
           title: Text(
-            "Reclamations en attent",
+            "Reclamations en attente",
             style: TextStyle(color: Colors.black54, fontSize: 15),
           ),
         ),
@@ -214,13 +214,13 @@ class _PendingReclamationsState extends State<PendingReclamationsAdmin> {
                                                               Row(
                                                                 children: [
                                                                   Text(
-                                                                    "Priorité : ${reclamations[index].priority}",
+                                                                    "${reclamations[index].priority}",
                                                                     style: TextStyle(
-                                                                      color: reclamations[index].priority == "faible"
-                                                                          ? Colors.green
-                                                                          : (reclamations[index].priority == "moyenne"
-                                                                              ? Colors.blueAccent
-                                                                              : Colors.red),
+                                                                      color: reclamations[index].priority == "moyenne"
+                                                                          ? Colors.orange
+                                                                          : (reclamations[index].priority == "Haute"
+                                                                          ? Colors.red
+                                                                          : Colors.green),
                                                                     ),
                                                                   ),
                                                                   Padding(

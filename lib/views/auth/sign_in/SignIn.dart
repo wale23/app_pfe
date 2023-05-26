@@ -30,7 +30,7 @@ class _signInemailState extends State<SignIn> {
         context: context,
         builder: (context) {
           return CupertinoAlertDialog(
-            content: Text("vous etes sur de sortir ?"),
+            content: Text("vous êtes sur de sortir ?"),
             actions: [Negative(context), Positive()],
           );
         });

@@ -214,13 +214,13 @@ class _InProgressReclamationsState extends State<InProgressReclamationsAdmin> {
                                                               Row(
                                                                 children: [
                                                                   Text(
-                                                                    "Priorité : ${reclamations[index].priority}",
+                                                                    "${reclamations[index].priority}",
                                                                     style: TextStyle(
-                                                                      color: reclamations[index].priority == "faible"
-                                                                          ? Colors.green
-                                                                          : (reclamations[index].priority == "moyenne"
-                                                                              ? Colors.blueAccent
-                                                                              : Colors.red),
+                                                                      color: reclamations[index].priority == "moyenne"
+                                                                          ? Colors.orange
+                                                                          : (reclamations[index].priority == "Haute"
+                                                                          ? Colors.red
+                                                                          : Colors.green),
                                                                     ),
                                                                   ),
                                                                   Padding(
