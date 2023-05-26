@@ -77,7 +77,6 @@ class _UploadImagesState extends State<UploadImages> {
                     final response = await request.send();
                     if (response.statusCode == 200) {
                       var responseBody = await response.stream.bytesToString();
-                      print(responseBody);
                     } else {
                       throw Exception('Failed to upload images test: ${response.statusCode}');
                     }
