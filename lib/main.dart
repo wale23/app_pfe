@@ -79,7 +79,7 @@ class _UploadImagesState extends State<UploadImages> {
                       var responseBody = await response.stream.bytesToString();
                       print(responseBody);
                     } else {
-                      throw Exception('Failed to upload images: ${response.statusCode}');
+                      throw Exception('Failed to upload images test: ${response.statusCode}');
                     }
                   } catch (e) {
                     print(e.toString());
