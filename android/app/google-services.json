@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "830948220676",
+    "project_id": "gpro-ca561",
+    "storage_bucket": "gpro-ca561.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:830948220676:android:8e7e806216e018c8e4ba51",
+        "android_client_info": {
+          "package_name": "com.example.app_pfe"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "830948220676-burhtl9k36ui145f1eoc5m5jito2mja9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDQVX5u0047NeJS_jX1xlfz05UCwkVFT44"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "830948220676-burhtl9k36ui145f1eoc5m5jito2mja9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,13 +1,8 @@
 import 'dart:io';
 
 import 'package:app_pfe/ressources/dimensions/constants.dart';
-import 'package:app_pfe/views/admin/all_view.dart';
-import 'package:app_pfe/views/admin/closed.dart';
-import 'package:app_pfe/views/admin/pending.dart';
-import 'package:app_pfe/views/admin/progress.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
 class AdminReclamationsView extends StatefulWidget {
@@ -99,7 +94,7 @@ class _ReclamationsViewState extends State<AdminReclamationsView> {
             ),
             InkWell(
               onTap: () {
-                Get.to(MyAllReclamationsAdmin());
+                //  Get.to(MyAllReclamationsAdmin());
               },
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -139,7 +134,7 @@ class _ReclamationsViewState extends State<AdminReclamationsView> {
                           ListTile(
                             title: Text('Les reclamations en cours'),
                             onTap: () {
-                              Get.to(InProgressReclamationsAdmin());
+                              // Get.to(InProgressReclamationsAdmin());
                             },
                           ),
                           Container(
@@ -154,7 +149,7 @@ class _ReclamationsViewState extends State<AdminReclamationsView> {
                         children: [
                           ListTile(
                             onTap: () {
-                              Get.to(FinishedReclamationsAdmin());
+                              //  Get.to(FinishedReclamationsAdmin());
                             },
                             title: Text('Les reclamations fermées'),
                           ),
@@ -170,7 +165,7 @@ class _ReclamationsViewState extends State<AdminReclamationsView> {
                         children: [
                           ListTile(
                             onTap: () {
-                              Get.to(PendingReclamationsAdmin());
+                              // Get.to(PendingReclamationsAdmin());
                             },
                             title: Text('Les reclamations en attente'),
                           ),

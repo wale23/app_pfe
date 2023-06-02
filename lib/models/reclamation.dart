@@ -11,7 +11,8 @@ class Reclamation {
   String? description;
   List images;
   bool? archived;
-  User? user;
+  User sender;
+  User receiver;
   List<Comments>? comments;
   Reclamation({
     this.id,
@@ -22,7 +23,8 @@ class Reclamation {
     this.description,
     required this.images,
     this.archived,
-    this.user,
+    required this.sender,
+    required this.receiver,
     this.dep,
     this.comments,
   });
@@ -37,7 +39,8 @@ class Reclamation {
       images: List<dynamic>.from(json['images']),
       archived: json['archived'],
       dep: json['departement'],
-      user: User.fromJson(json['user']),
+      sender: User.fromJson(json['sender']),
+      receiver: User.fromJson(json['receiver']),
       comments: json['comments'] == null ? [] : List<Comments>.from(json['comments']),
     );
   }
@@ -52,7 +55,8 @@ class Reclamation {
       'images': images,
       'departement': dep,
       'archived': archived,
-      'user_id': user?.id,
+      'sender': sender.id,
+      'receiver': receiver.id,
       'comments': comments,
     };
   }

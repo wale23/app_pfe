@@ -102,14 +102,17 @@ class _MyAllReclamationsState extends State<MyAllReclamations> {
                 ),
           title: multiSelection
               ? IconButton(
-            onPressed: () {
-              setState(() {
-                multiSelection = false;
-                idsToDelete.clear();
-              });
-            },
-            icon: Icon(Icons.close,color: Colors.green,),
-          )
+                  onPressed: () {
+                    setState(() {
+                      multiSelection = false;
+                      idsToDelete.clear();
+                    });
+                  },
+                  icon: Icon(
+                    Icons.close,
+                    color: Colors.green,
+                  ),
+                )
               : Text(
                   "Tous les Reclamations",
                   style: TextStyle(color: Colors.black54, fontSize: 15),
@@ -178,16 +181,16 @@ class _MyAllReclamationsState extends State<MyAllReclamations> {
                   ),
                 ),
                 pageIndex == 1
-                   ? Center(
-                      child: Text("Reclamations reçues"),
-                     )
+                    ? Center(
+                        child: Text("Reclamations reçues"),
+                      )
                     : Expanded(
                         child: FutureBuilder(
                             future: ReclamationsServices().getReclamations(),
                             builder: (context, AsyncSnapshot snapshot) {
                               if (snapshot.hasData) {
                                 List<Reclamation> reclamations = [];
-                                List<Reclamation> data = snapshot.data;
+                                List data = snapshot.data;
                                 for (var reclamation in data) {
                                   reclamations.add(reclamation);
                                 }
@@ -277,7 +280,7 @@ class _MyAllReclamationsState extends State<MyAllReclamations> {
                                                                   Text(
                                                                     "${reclamations[index].priority}",
                                                                     style: TextStyle(
-                                                                      color: reclamations[index].priority == "moyenne"
+                                                                      color: reclamations[index].priority == "Moyenne"
                                                                           ? Colors.orange
                                                                           : (reclamations[index].priority == "Haute"
                                                                               ? Colors.red
@@ -307,7 +310,7 @@ class _MyAllReclamationsState extends State<MyAllReclamations> {
                                                                   ),
                                                                   Padding(
                                                                     padding: const EdgeInsets.all(4.0),
-                                                                    child: Text("${reclamations[index].user!.full_name}"),
+                                                                    child: Text("${reclamations[index].sender.full_name}"),
                                                                   ),
                                                                   Padding(
                                                                       padding: EdgeInsets.symmetric(horizontal: 20),

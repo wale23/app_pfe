@@ -13,17 +13,14 @@ import 'call_api.dart';
 class ReclamationsServices {
   var user = GetStorage().read('user');
 
-
   Future<List<Reclamation>> getReclamations([String? type]) async {
     try {
       dynamic url =
           type != null ? ApiConstants.reclamations + "/${user["id"]}/$type" : ApiConstants.reclamations + "/${user["id"]}";
       var response = await CallApi().getData(url);
 
-      print(response.statusCode);
       if (response.statusCode == 200) {
         var result = jsonDecode(utf8.decode(response.bodyBytes));
-        print(result);
         List<Reclamation> listOfCompanies = [];
         for (var data in result) {
           listOfCompanies.add(Reclamation.fromJson(data));
@@ -43,10 +40,8 @@ class ReclamationsServices {
       dynamic url = ApiConstants.archived + "/${user["id"]}";
       var response = await CallApi().getData(url);
 
-      print(response.statusCode);
       if (response.statusCode == 200) {
         var result = jsonDecode(utf8.decode(response.bodyBytes));
-        print(result);
         List<Reclamation> listOfCompanies = [];
         for (var data in result) {
           listOfCompanies.add(Reclamation.fromJson(data));
@@ -108,11 +103,9 @@ class ReclamationsServices {
     }
   }
 
-  static Future createReclamation(String subject, String desc, String priority, String depa, List<File> images ) async {
+  static Future createReclamation(String subject, String desc, String priority, String depa, List<File> images) async {
     if (images.isEmpty) {
       try {
-        print(priority);
-        print(depa);
         Map<String, dynamic> data = {
           "subject": subject,
           "user_id": GetStorage().read('user')['id'],
@@ -121,17 +114,13 @@ class ReclamationsServices {
           "subject": subject,
           "departement": depa,
           "images": [],
-
         };
         var body = jsonEncode(data);
-        print(priority);
+
         dynamic url = ApiConstants.addReclamation;
         var response = await CallApi().postData(url, body);
 
-        print(response.statusCode);
-
         var result = jsonDecode(response.body);
-        print(result);
       } catch (e) {
         print(e.toString());
       }
@@ -145,7 +134,6 @@ class ReclamationsServices {
         final response = await request.send();
         if (response.statusCode == 200) {
           var responseBody = await response.stream.bytesToString();
-          print(jsonDecode(responseBody));
           try {
             Map<String, dynamic> data = {
               "subject": subject,
@@ -161,10 +149,7 @@ class ReclamationsServices {
             dynamic url = ApiConstants.addReclamation;
             var response = await CallApi().postData(url, body);
 
-            print(response.statusCode);
-
             var result = jsonDecode(response.body);
-            print(result);
           } catch (e) {
             print(e.toString());
           }
@@ -182,10 +167,8 @@ class ReclamationsServices {
       dynamic url = ApiConstants.comments + "/${id}";
       var response = await CallApi().getData(url);
 
-      print(response.statusCode);
       if (response.statusCode == 200) {
         var result = jsonDecode(utf8.decode(response.bodyBytes));
-        print(result);
         List<Comments> listOfCompanies = [];
         for (var data in result) {
           listOfCompanies.add(Comments.fromJson(data));
@@ -210,7 +193,6 @@ class ReclamationsServices {
       };
       var body = jsonEncode(data);
       var response = await CallApi().postData(url, body);
-      print(response.body);
       test();
     } catch (e) {
       print(e.toString());
@@ -222,10 +204,8 @@ class ReclamationsServices {
       dynamic url = ApiConstants.all;
       var response = await CallApi().getData(url);
 
-      print(response.statusCode);
       if (response.statusCode == 200) {
         var result = jsonDecode(utf8.decode(response.bodyBytes));
-        print(result);
         List<Reclamation> listOfCompanies = [];
         for (var data in result) {
           listOfCompanies.add(Reclamation.fromJson(data));
@@ -245,10 +225,8 @@ class ReclamationsServices {
       dynamic url = ApiConstants.bystatus + "/$status";
       var response = await CallApi().getData(url);
 
-      print(response.statusCode);
       if (response.statusCode == 200) {
         var result = jsonDecode(utf8.decode(response.bodyBytes));
-        print(result);
         List<Reclamation> listOfCompanies = [];
         for (var data in result) {
           listOfCompanies.add(Reclamation.fromJson(data));

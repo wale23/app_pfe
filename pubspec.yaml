@@ -50,6 +50,11 @@ dependencies:
   font_awesome_flutter: ^10.4.0
   unicons: ^2.1.1
   intl: ^0.18.1
+  flutter_launcher_icons: ^0.13.1
+  firebase_messaging: ^14.6.2
+  firebase_core: ^2.13.1
+  flutter_local_notifications: ^14.1.0
+  firebase_analytics: ^10.4.2
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -60,7 +65,10 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
-
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "images/img_3.png"
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 

@@ -1,8 +1,8 @@
-import 'package:app_pfe/views/admin/profile.dart';
-import 'package:app_pfe/views/admin/reclamations_view.dart';
+import 'package:app_pfe/views/user/my_reclamations_view.dart';
+import 'package:app_pfe/views/user/notifications.dart';
+import 'package:app_pfe/views/user/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:unicons/unicons.dart';
-import 'notifications.dart';
 
 class HomeAdmin extends StatefulWidget {
   const HomeAdmin({Key? key}) : super(key: key);
@@ -13,9 +13,9 @@ class HomeAdmin extends StatefulWidget {
 
 class _HomeAdminState extends State<HomeAdmin> {
   List pages = [
-    AdminReclamationsView(),
-    NotifAdmin(),
-    ProfileAdmin(),
+    MyReclamationsView(),
+    NotifUser(),
+    ProfileUser(),
   ];
   int index = 0;
 

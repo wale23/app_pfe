@@ -1,8 +1,12 @@
+import 'package:app_pfe/services/LocalNotificationApi.dart';
 import 'package:app_pfe/views/user/my_reclamations_view.dart';
 import 'package:app_pfe/views/user/profile.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:unicons/unicons.dart';
+
 import 'notifications.dart';
+
 class HomeUser extends StatefulWidget {
   const HomeUser({Key? key}) : super(key: key);
 
@@ -11,6 +15,16 @@ class HomeUser extends StatefulWidget {
 }
 
 class _HomeAdminState extends State<HomeUser> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    FirebaseMessaging.instance.getToken().then((userToken) {});
+    FirebaseMessaging.onMessage.listen((event) {
+      NotificationConfig().showNotification(event.notification!.title!, event.notification!.body!);
+    });
+  }
+
   List pages = [
     MyReclamationsView(),
     NotifUser(),
@@ -32,7 +46,6 @@ class _HomeAdminState extends State<HomeUser> {
           });
         },
         items: [
-
           BottomNavigationBarItem(
             icon: new Icon(UniconsLine.ticket),
             label: 'Reclamations',

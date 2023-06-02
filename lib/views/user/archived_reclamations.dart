@@ -107,7 +107,10 @@ class _ArchivedReclamationsState extends State<ArchivedReclamations> {
                       idsToDelete.clear();
                     });
                   },
-            icon: Icon(Icons.close,color: Colors.green,),
+                  icon: Icon(
+                    Icons.close,
+                    color: Colors.green,
+                  ),
                 )
               : Text(
                   "Reclamations archivés",
@@ -239,7 +242,7 @@ class _ArchivedReclamationsState extends State<ArchivedReclamations> {
                                                     ),
                                                     Padding(
                                                       padding: const EdgeInsets.all(4.0),
-                                                      child: Text("${reclamations[index].user!.full_name}"),
+                                                      child: Text("${reclamations[index].sender.full_name}"),
                                                     ),
                                                     Padding(
                                                         padding: EdgeInsets.symmetric(horizontal: 20),

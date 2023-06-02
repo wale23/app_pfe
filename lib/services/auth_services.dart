@@ -5,6 +5,7 @@ import 'package:app_pfe/models/User.dart';
 import 'package:app_pfe/services/api_constants.dart';
 import 'package:app_pfe/services/call_api.dart';
 import 'package:app_pfe/views/auth/sign_in/SignIn.dart' as signin;
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -20,10 +21,15 @@ class AuthServices {
   Future<ApiResponse> SignUp({required User user}) async {
     ApiResponse apiResponse = ApiResponse();
     try {
+      String token = '';
+      FirebaseMessaging.instance.getToken().then((userToken) {
+        token = userToken!;
+      });
+      user.token = token;
       var body = jsonEncode(user.toJson());
       http.Response response = await CallApi().postData(ApiConstants.register, body);
       var result = jsonDecode(response.body);
-      print("result : ${result}");
+
       if (response.statusCode == 200) {
         User user = User.fromJson(result);
         saveUserLocally(user);
@@ -44,11 +50,17 @@ class AuthServices {
 
   Future<ApiResponse> SignIn({required User user}) async {
     ApiResponse apiResponse = ApiResponse();
+
     try {
-      var body = jsonEncode(user.toJson());
+      String? token = await FirebaseMessaging.instance.getToken();
+      user.setToken = "token!";
+
+      Map<String, dynamic> data = user.toJson();
+      data['token'] = token;
+      var body = jsonEncode(data);
+
       http.Response response = await CallApi().postData(ApiConstants.login, body);
       var result = jsonDecode(utf8.decode(response.bodyBytes));
-
       if (response.statusCode == 200) {
         User user = User.fromJson(result);
         saveUserLocally(user);
@@ -126,6 +138,7 @@ class AuthServices {
 
   logOut(BuildContext context) {
     GetStorage().remove("user");
+    GetStorage().remove("auth");
     Get.to(signin.SignIn());
   }
 }

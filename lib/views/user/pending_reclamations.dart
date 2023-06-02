@@ -107,14 +107,17 @@ class _PendingReclamationsState extends State<PendingReclamations> {
                 ),
           title: multiSelection
               ? IconButton(
-            onPressed: () {
-              setState(() {
-                multiSelection = false;
-                idsToDelete.clear();
-              });
-            },
-            icon: Icon(Icons.close,color: Colors.green,),
-          )
+                  onPressed: () {
+                    setState(() {
+                      multiSelection = false;
+                      idsToDelete.clear();
+                    });
+                  },
+                  icon: Icon(
+                    Icons.close,
+                    color: Colors.green,
+                  ),
+                )
               : Text(
                   "Reclamations en attente",
                   style: TextStyle(color: Colors.black54, fontSize: 15),
@@ -283,8 +286,8 @@ class _PendingReclamationsState extends State<PendingReclamations> {
                                                                     color: reclamations[index].priority == "moyenne"
                                                                         ? Colors.orange
                                                                         : (reclamations[index].priority == "Haute"
-                                                                        ? Colors.red
-                                                                        : Colors.green),
+                                                                            ? Colors.red
+                                                                            : Colors.green),
                                                                   ),
                                                                 ),
                                                                 Padding(
@@ -310,7 +313,7 @@ class _PendingReclamationsState extends State<PendingReclamations> {
                                                                 ),
                                                                 Padding(
                                                                   padding: const EdgeInsets.all(4.0),
-                                                                  child: Text("${reclamations[index].user!.full_name}"),
+                                                                  child: Text("${reclamations[index].sender.full_name}"),
                                                                 ),
                                                                 Padding(
                                                                     padding: EdgeInsets.symmetric(horizontal: 20),

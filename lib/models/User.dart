@@ -7,24 +7,17 @@ class User {
   final String? phone_number;
   final int? role_id;
   final String? type;
+  String? token;
 
-  User({this.email, this.full_name, this.company, this.phone_number, this.role_id, this.id, this.password, this.type});
+  User(
+      {this.email, this.full_name, this.company, this.phone_number, this.role_id, this.id, this.password, this.type, this.token});
+  String? get getToken => token;
+
+  set setToken(String token) {
+    token = token;
+  }
 
   factory User.fromJson(Map<String, dynamic> json) {
-    /* if (json['displayName'] != null) {
-      return User(
-        email: json['email'],
-        full_name: json['displayName'],
-      );
-    } else if (json['picture'] != null) {
-      return User(
-        id: json["id"],
-        email: json["email"],
-        company: json["company"],
-        phone: json["phone"],
-        role_id: json["role_id"],
-      );
-    }*/
     return User(
       id: json["id"],
       full_name: json["full_name"],
@@ -33,6 +26,7 @@ class User {
       phone_number: json["phone_number"],
       role_id: json["role_id"],
       type: json["type"],
+      token: json["token"],
     );
   }
 
@@ -45,5 +39,6 @@ class User {
         "password": password,
         "role_id": role_id,
         "type": type,
+        "token": token,
       };
 }
