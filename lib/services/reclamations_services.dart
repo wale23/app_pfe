@@ -103,12 +103,14 @@ class ReclamationsServices {
     }
   }
 
-  static Future createReclamation(String subject, String desc, String priority, String depa, List<File> images) async {
+  static Future createReclamation(
+      String subject, String desc, String priority, String depa, List<File> images, int recevier) async {
     if (images.isEmpty) {
       try {
         Map<String, dynamic> data = {
           "subject": subject,
-          "user_id": GetStorage().read('user')['id'],
+          "sender": GetStorage().read('user')['id'],
+          "receiver": recevier,
           "priority": priority,
           "description": desc,
           "subject": subject,

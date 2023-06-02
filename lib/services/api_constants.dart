@@ -21,4 +21,7 @@ class ApiConstants {
 
   static String bystatus = 'bystatus';
   static String all = 'all';
+  static String users = 'users';
+  static String deleteNotif = 'delete-notif';
+  static String myNotifications = 'notifications';
 }
