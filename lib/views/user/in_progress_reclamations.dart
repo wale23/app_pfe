@@ -3,6 +3,7 @@ import 'package:app_pfe/ressources/dimensions/constants.dart';
 import 'package:app_pfe/services/reclamations_services.dart';
 import 'package:app_pfe/views/user/reclamation_details.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
@@ -146,7 +147,7 @@ class _InProgressReclamationsState extends State<InProgressReclamations> {
                         height: Constants.screenHeight * 0.04,
                         width: Constants.screenWidth * 0.1,
                         child: Icon(
-                          Icons.menu,
+                          Icons.arrow_outward,
                           color: pageIndex == 0 ? Colors.white : Colors.green,
                         ),
                       ),
@@ -161,7 +162,7 @@ class _InProgressReclamationsState extends State<InProgressReclamations> {
                       },
                       child: Container(
                         decoration: BoxDecoration(
-                            color: pageIndex == 1 ? Colors.green : Colors.white,
+                            color: pageIndex == 1 ? Colors.red : Colors.white,
                             border: Border.all(color: Colors.green),
                             borderRadius: BorderRadius.only(
                               topRight: Radius.circular(5),
@@ -170,8 +171,8 @@ class _InProgressReclamationsState extends State<InProgressReclamations> {
                         height: Constants.screenHeight * 0.04,
                         width: Constants.screenWidth * 0.1,
                         child: Icon(
-                          UniconsLine.chart_line,
-                          color: pageIndex == 1 ? Colors.white : Colors.green,
+                          Icons.arrow_downward,
+                          color: pageIndex == 1 ? Colors.white : Colors.red,
                         ),
                       ),
                     ),
@@ -179,8 +180,198 @@ class _InProgressReclamationsState extends State<InProgressReclamations> {
                 ),
               ),
               pageIndex == 1
-                  ? Center(
-                      child: Text("Statistiques"),
+                  ? Expanded(
+                      child: FutureBuilder(
+                          future: ReclamationsServices().getReceivedReclamations("En cours"),
+                          builder: (context, AsyncSnapshot snapshot) {
+                            if (snapshot.hasData) {
+                              List<Reclamation> reclamations = [];
+                              List<Reclamation> data = snapshot.data;
+                              for (var reclamation in data) {
+                                reclamations.add(reclamation);
+                              }
+                              if (snapshot.data.length != 0) {
+                                return ListView.builder(
+                                    itemCount: reclamations.length,
+                                    itemBuilder: (context, index) {
+                                      return InkWell(
+                                        onTap: () {
+                                          Get.to(ReclamationDetails(reclamation: reclamations[index]));
+                                        },
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                              border: Border(
+                                                  top: BorderSide(color: Colors.black.withOpacity(0.1)),
+                                                  bottom: BorderSide(color: Colors.black.withOpacity(0.1))),
+                                            ),
+                                            child: Slidable(
+                                              key: const ValueKey(0),
+                                              startActionPane: ActionPane(
+                                                motion: const ScrollMotion(),
+                                                children: [
+                                                  SlidableAction(
+                                                    onPressed: null,
+                                                    backgroundColor: Colors.green,
+                                                    foregroundColor: Colors.white,
+                                                    icon: UniconsLine.cancel,
+                                                    label: 'Annuler',
+                                                  ),
+                                                  SlidableAction(
+                                                    onPressed: (ctx) {
+                                                      ReclamationsServices.changeStatus("Terminé", reclamations[index].id!, () {
+                                                        setState(() {});
+                                                      });
+                                                      final snackBar = SnackBar(
+                                                        content: Text("Statut changé avec succès"),
+                                                        backgroundColor: (Colors.green),
+                                                        action: SnackBarAction(
+                                                          label: 'fermer',
+                                                          textColor: Colors.white,
+                                                          onPressed: () {},
+                                                        ),
+                                                      );
+                                                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                                                    },
+                                                    backgroundColor: Colors.red.withOpacity(0.7),
+                                                    foregroundColor: Colors.white,
+                                                    icon: UniconsLine.ticket,
+                                                    label: 'Terminer',
+                                                  ),
+                                                ],
+                                              ),
+                                              child: Container(
+                                                color: Colors.grey.withOpacity(0.2),
+                                                child: Padding(
+                                                  padding: const EdgeInsets.all(8.0),
+                                                  child: Row(
+                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                    children: [
+                                                      Container(
+                                                        decoration: BoxDecoration(
+                                                          color: Colors.white,
+                                                          shape: BoxShape.circle,
+                                                        ),
+                                                        child: Padding(
+                                                          padding: const EdgeInsets.all(8.0),
+                                                          child: !idsToDelete.contains(reclamations[index].id!)
+                                                              ? Icon(
+                                                                  UniconsLine.comment,
+                                                                  color: Colors.grey,
+                                                                )
+                                                              : Icon(
+                                                                  UniconsLine.check,
+                                                                  color: Colors.green,
+                                                                ),
+                                                        ),
+                                                      ),
+                                                      Expanded(
+                                                        child: Container(
+                                                          child: Column(
+                                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                                            children: [
+                                                              Row(
+                                                                children: [
+                                                                  Padding(
+                                                                    padding: const EdgeInsets.all(4.0),
+                                                                    child: Text('#${reclamations[index].id}'),
+                                                                  ),
+                                                                  Expanded(
+                                                                    child: Padding(
+                                                                      padding: const EdgeInsets.all(4.0),
+                                                                      child: Text(
+                                                                          overflow: TextOverflow.ellipsis,
+                                                                          '${reclamations[index].subject}'),
+                                                                    ),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                              Row(
+                                                                children: [
+                                                                  Text(
+                                                                    "${reclamations[index].priority}",
+                                                                    style: TextStyle(
+                                                                      color: reclamations[index].priority == "moyenne"
+                                                                          ? Colors.orange
+                                                                          : (reclamations[index].priority == "Haute"
+                                                                              ? Colors.red
+                                                                              : Colors.green),
+                                                                    ),
+                                                                  ),
+                                                                  Padding(
+                                                                    padding: const EdgeInsets.all(8.0),
+                                                                    child: Row(
+                                                                      children: [
+                                                                        Text(DateFormat('dd MMM HH:mm')
+                                                                            .format(reclamations[index].date!)),
+                                                                        Icon(
+                                                                          UniconsLine.clock,
+                                                                          color: Colors.red.withOpacity(0.3),
+                                                                        ),
+                                                                      ],
+                                                                    ),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                              Row(
+                                                                children: [
+                                                                  Icon(
+                                                                    UniconsLine.headphones,
+                                                                    color: Colors.red.withOpacity(0.3),
+                                                                  ),
+                                                                  Padding(
+                                                                    padding: const EdgeInsets.all(4.0),
+                                                                    child: Text("${reclamations[index].sender.full_name}"),
+                                                                  ),
+                                                                  Padding(
+                                                                      padding: EdgeInsets.symmetric(horizontal: 20),
+                                                                      child: Text(
+                                                                        "${reclamations[index].status}",
+                                                                        style: TextStyle(
+                                                                          color: reclamations[index].status == "En cours"
+                                                                              ? Colors.green
+                                                                              : (reclamations[index].status == "Aucune"
+                                                                                  ? Colors.blueAccent
+                                                                                  : Colors.red),
+                                                                        ),
+                                                                      )),
+                                                                ],
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      )
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      );
+                                    });
+                              } else {
+                                return ListView.builder(
+                                    itemCount: 1,
+                                    itemBuilder: (context, index) {
+                                      return Center(
+                                          child: Column(
+                                        children: [
+                                          Lottie.asset("images/empty.json"),
+                                          Text(
+                                            "pas de reclamations recu en cours",
+                                            style: TextStyle(
+                                                fontSize: 20, fontFamily: "NunitoBold", color: Colors.black.withOpacity(0.5)),
+                                          )
+                                        ],
+                                      ));
+                                    });
+                              }
+                            } else {
+                              return Center(child: Lottie.asset("images/loading.json", height: Constants.screenHeight * 0.1));
+                            }
+                          }),
                     )
                   : Expanded(
                       child: FutureBuilder(
@@ -306,7 +497,7 @@ class _InProgressReclamationsState extends State<InProgressReclamations> {
                                                                 ),
                                                                 Padding(
                                                                   padding: const EdgeInsets.all(4.0),
-                                                                  child: Text("${reclamations[index].sender.full_name}"),
+                                                                  child: Text("${reclamations[index].receiver.full_name}"),
                                                                 ),
                                                                 Padding(
                                                                     padding: EdgeInsets.symmetric(horizontal: 20),

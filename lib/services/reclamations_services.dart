@@ -171,10 +171,12 @@ class ReclamationsServices {
 
       if (response.statusCode == 200) {
         var result = jsonDecode(utf8.decode(response.bodyBytes));
+        print(result);
         List<Comments> listOfCompanies = [];
         for (var data in result) {
           listOfCompanies.add(Comments.fromJson(data));
         }
+
         return listOfCompanies;
       } else {
         return [];
@@ -195,6 +197,7 @@ class ReclamationsServices {
       };
       var body = jsonEncode(data);
       var response = await CallApi().postData(url, body);
+      print(response);
       test();
     } catch (e) {
       print(e.toString());
@@ -225,6 +228,30 @@ class ReclamationsServices {
   Future<List<Reclamation>> getReclamationsAdminByStatus(String status) async {
     try {
       dynamic url = ApiConstants.bystatus + "/$status";
+      var response = await CallApi().getData(url);
+
+      if (response.statusCode == 200) {
+        var result = jsonDecode(utf8.decode(response.bodyBytes));
+        List<Reclamation> listOfCompanies = [];
+        for (var data in result) {
+          listOfCompanies.add(Reclamation.fromJson(data));
+        }
+        return listOfCompanies;
+      } else {
+        return [];
+      }
+    } catch (e) {
+      print(e.toString());
+      return [];
+    }
+  }
+
+  /// received reclamations
+  Future<List<Reclamation>> getReceivedReclamations([String? type]) async {
+    try {
+      dynamic url = type != null
+          ? ApiConstants.receivedReclamations + "/${user["id"]}/$type"
+          : ApiConstants.receivedReclamations + "/${user["id"]}";
       var response = await CallApi().getData(url);
 
       if (response.statusCode == 200) {

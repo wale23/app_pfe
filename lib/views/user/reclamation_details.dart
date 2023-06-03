@@ -5,6 +5,7 @@ import 'package:app_pfe/services/reclamations_services.dart';
 import 'package:app_pfe/views/user/reclamation_images.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
 
@@ -18,6 +19,7 @@ class ReclamationDetails extends StatefulWidget {
 
 class _ReclamationDetailsState extends State<ReclamationDetails> {
   String value = "";
+  var user = GetStorage().read("user");
   TextEditingController commentController = TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -178,12 +180,12 @@ class _ReclamationDetailsState extends State<ReclamationDetails> {
                         future: ReclamationsServices().getComments(widget.reclamation.id!),
                         builder: (context, AsyncSnapshot snapshot) {
                           if (snapshot.hasData) {
-                            List<Comments> pr = [];
+                            List<Comments> comments = [];
                             List<Comments> data = snapshot.data;
                             for (var commented in data) {
-                              pr.add(commented);
+                              comments.add(commented);
                             }
-                            List<Comments> comments = pr.reversed.toList();
+
                             if (snapshot.data.length != 0) {
                               return ListView.builder(
                                   itemCount: comments.length,
@@ -224,69 +226,70 @@ class _ReclamationDetailsState extends State<ReclamationDetails> {
                 ],
               ),
             )),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-              child: Row(
-                children: [
-                  Expanded(
-                      child: TextFormField(
-                    onChanged: (val) {
-                      setState(() {
-                        value = val;
-                      });
-                    },
-                    style: TextStyle(fontSize: 18),
-                    controller: commentController,
-                    keyboardType: TextInputType.text,
-                    cursorColor: Colors.black,
-                    decoration: InputDecoration(
-                      focusedErrorBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Colors.red,
+            if (user['role_id'] != 1)
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+                child: Row(
+                  children: [
+                    Expanded(
+                        child: TextFormField(
+                      onChanged: (val) {
+                        setState(() {
+                          value = val;
+                        });
+                      },
+                      style: TextStyle(fontSize: 18),
+                      controller: commentController,
+                      keyboardType: TextInputType.text,
+                      cursorColor: Colors.black,
+                      decoration: InputDecoration(
+                        focusedErrorBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.red,
+                          ),
+                        ),
+                        errorBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.red,
+                          ),
+                        ),
+                        hintText: "Commentaire",
+                        filled: true,
+                        fillColor: Colors.white,
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(5),
+                          borderSide: BorderSide(
+                            width: 2.0,
+                            color: Colors.lightGreen.withOpacity(0.5),
+                          ),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(5),
+                          borderSide: BorderSide(
+                            color: Colors.lightGreen,
+                            width: 2.0,
+                          ),
                         ),
                       ),
-                      errorBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Colors.red,
-                        ),
-                      ),
-                      hintText: "Commentaire",
-                      filled: true,
-                      fillColor: Colors.white,
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(5),
-                        borderSide: BorderSide(
-                          width: 2.0,
-                          color: Colors.lightGreen.withOpacity(0.5),
-                        ),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(5),
-                        borderSide: BorderSide(
-                          color: Colors.lightGreen,
-                          width: 2.0,
-                        ),
-                      ),
-                    ),
-                  )),
-                  IconButton(
-                      onPressed: widget.reclamation.status != "En cours" || value.isEmpty
-                          ? null
-                          : () {
-                              ReclamationsServices.createComment(commentController.text, widget.reclamation.id!, () {
-                                setState(() {
-                                  value = "";
-                                  commentController.clear();
+                    )),
+                    IconButton(
+                        onPressed: widget.reclamation.status != "En cours" || value.isEmpty
+                            ? null
+                            : () {
+                                ReclamationsServices.createComment(commentController.text, widget.reclamation.id!, () {
+                                  setState(() {
+                                    value = "";
+                                    commentController.clear();
+                                  });
                                 });
-                              });
-                            },
-                      icon: Icon(
-                        Icons.send,
-                        color: Colors.green,
-                      ))
-                ],
-              ),
-            )
+                              },
+                        icon: Icon(
+                          Icons.send,
+                          color: Colors.green,
+                        ))
+                  ],
+                ),
+              )
           ],
         ),
       ),

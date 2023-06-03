@@ -7,7 +7,6 @@ import 'package:app_pfe/services/call_api.dart';
 import 'package:get_storage/get_storage.dart';
 
 class NotificationsServices {
-  static var user = GetStorage().read("user");
   static Future<bool> deleteNotifications(data, VoidCallback test) async {
     var body = jsonEncode(data);
     try {
@@ -26,9 +25,9 @@ class NotificationsServices {
 
   static Future<List<FirebaseNotification>> myNotifications() async {
     try {
-      dynamic url = ApiConstants.myNotifications + "/${user["id"]}";
+      dynamic url = ApiConstants.myNotifications + "/${GetStorage().read("user")['id']}";
       var response = await CallApi().getData(url);
-
+      print(GetStorage().read("user")['id']);
       if (response.statusCode == 200) {
         var result = jsonDecode(utf8.decode(response.bodyBytes));
         List<FirebaseNotification> listOfCompanies = [];

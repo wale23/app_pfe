@@ -21,12 +21,11 @@ class AuthServices {
   Future<ApiResponse> SignUp({required User user}) async {
     ApiResponse apiResponse = ApiResponse();
     try {
-      String token = '';
-      FirebaseMessaging.instance.getToken().then((userToken) {
-        token = userToken!;
-      });
-      user.token = token;
-      var body = jsonEncode(user.toJson());
+      String? token = await FirebaseMessaging.instance.getToken();
+
+      Map<String, dynamic> data = user.toJson();
+      data['token'] = token;
+      var body = jsonEncode(data);
       http.Response response = await CallApi().postData(ApiConstants.register, body);
       var result = jsonDecode(response.body);
 
@@ -42,7 +41,7 @@ class AuthServices {
       return apiResponse;
     } catch (e) {
       apiResponse.responseMessage = e.toString();
-      print(e.toString());
+
       apiResponse.responseStatus = false;
       return apiResponse;
     }
@@ -53,12 +52,11 @@ class AuthServices {
 
     try {
       String? token = await FirebaseMessaging.instance.getToken();
-      user.setToken = "token!";
 
       Map<String, dynamic> data = user.toJson();
       data['token'] = token;
       var body = jsonEncode(data);
-
+      print(body);
       http.Response response = await CallApi().postData(ApiConstants.login, body);
       var result = jsonDecode(utf8.decode(response.bodyBytes));
       if (response.statusCode == 200) {

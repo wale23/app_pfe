@@ -76,7 +76,7 @@ class _NotifUserState extends State<NotifUser> {
                     itemCount: reclamations.length,
                     itemBuilder: (context, index) {
                       return Container(
-                        height: Constants.screenHeight * 0.17,
+                        height: Constants.screenHeight * 0.2,
                         child: InkWell(
                           onTap: () {
                             if (multiSelection) {
@@ -121,22 +121,25 @@ class _NotifUserState extends State<NotifUser> {
                                         children: [
                                           Row(
                                             children: [
-                                              Container(
-                                                decoration: BoxDecoration(
-                                                  color: Colors.white,
-                                                  shape: BoxShape.circle,
-                                                ),
-                                                child: Padding(
-                                                  padding: const EdgeInsets.all(8.0),
-                                                  child: !idsToDelete.contains(reclamations[index].id!)
-                                                      ? Icon(
-                                                          UniconsLine.user,
-                                                          color: Colors.grey,
-                                                        )
-                                                      : Icon(
-                                                          UniconsLine.check,
-                                                          color: Colors.green,
-                                                        ),
+                                              Padding(
+                                                padding: const EdgeInsets.all(8.0),
+                                                child: Container(
+                                                  decoration: BoxDecoration(
+                                                    color: Colors.white,
+                                                    shape: BoxShape.circle,
+                                                  ),
+                                                  child: Padding(
+                                                    padding: const EdgeInsets.all(8.0),
+                                                    child: !idsToDelete.contains(reclamations[index].id!)
+                                                        ? Icon(
+                                                            UniconsLine.user,
+                                                            color: Colors.grey,
+                                                          )
+                                                        : Icon(
+                                                            UniconsLine.check,
+                                                            color: Colors.green,
+                                                          ),
+                                                  ),
                                                 ),
                                               ),
                                               Padding(
@@ -198,7 +201,7 @@ class _NotifUserState extends State<NotifUser> {
                         children: [
                           Lottie.asset("images/empty.json"),
                           Text(
-                            "pas de reclamations",
+                            "pas de notifications",
                             style: TextStyle(fontSize: 20, fontFamily: "NunitoBold", color: Colors.black.withOpacity(0.5)),
                           )
                         ],

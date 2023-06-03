@@ -124,36 +124,49 @@ class _signUpState extends State<SignUp> {
                         IconButton(
                             onPressed: () {
                               GoogleAuthServices().getDataFromGoogle().then((value) {
-                                AuthServices()
-                                    .SignUp(
-                                        user: User(
-                                            full_name: value.full_name,
-                                            company: null,
-                                            phone_number: null,
-                                            password: null,
-                                            type: "google",
-                                            email: value.email,
-                                            role_id: 2))
-                                    .then((value) {
-                                  if (value.responseStatus!) {
-                                    if (value.responseMessage == "2") {
-                                      Get.to(HomeUser());
+                                if (value.email != null) {
+                                  AuthServices()
+                                      .SignUp(
+                                          user: User(
+                                              full_name: value.full_name,
+                                              company: null,
+                                              phone_number: null,
+                                              password: null,
+                                              type: "google",
+                                              email: value.email,
+                                              role_id: 2))
+                                      .then((value) {
+                                    if (value.responseStatus!) {
+                                      if (value.responseMessage == "2") {
+                                        Get.to(HomeUser());
+                                      } else {
+                                        Get.to(HomeAdmin());
+                                      }
                                     } else {
-                                      Get.to(HomeAdmin());
+                                      final snackBar = SnackBar(
+                                        content: Text(value.responseMessage!),
+                                        backgroundColor: (Colors.red),
+                                        action: SnackBarAction(
+                                          label: 'fermer',
+                                          textColor: Colors.white,
+                                          onPressed: () {},
+                                        ),
+                                      );
+                                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
                                     }
-                                  } else {
-                                    final snackBar = SnackBar(
-                                      content: Text(value.responseMessage!),
-                                      backgroundColor: (Colors.red),
-                                      action: SnackBarAction(
-                                        label: 'fermer',
-                                        textColor: Colors.white,
-                                        onPressed: () {},
-                                      ),
-                                    );
-                                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                                  }
-                                });
+                                  });
+                                } else {
+                                  final snackBar = SnackBar(
+                                    content: Text("une erreur est survenue lors de la connexion"),
+                                    backgroundColor: (Colors.red),
+                                    action: SnackBarAction(
+                                      label: 'fermer',
+                                      textColor: Colors.white,
+                                      onPressed: () {},
+                                    ),
+                                  );
+                                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                                }
                               });
                             },
                             icon: Image.asset(
@@ -162,36 +175,49 @@ class _signUpState extends State<SignUp> {
                         IconButton(
                             onPressed: () {
                               FaceBookApis.getDataFromFacebook().then((value) {
-                                AuthServices()
-                                    .SignUp(
-                                        user: User(
-                                            full_name: value.full_name,
-                                            company: null,
-                                            phone_number: null,
-                                            password: null,
-                                            type: "facebook",
-                                            email: value.email,
-                                            role_id: 2))
-                                    .then((value) {
-                                  if (value.responseStatus!) {
-                                    if (value.responseMessage == "2") {
-                                      Get.to(HomeUser());
+                                if (value.email != null) {
+                                  AuthServices()
+                                      .SignUp(
+                                          user: User(
+                                              full_name: value.full_name,
+                                              company: null,
+                                              phone_number: null,
+                                              password: null,
+                                              type: "facebook",
+                                              email: value.email,
+                                              role_id: 2))
+                                      .then((value) {
+                                    if (value.responseStatus!) {
+                                      if (value.responseMessage == "2") {
+                                        Get.to(HomeUser());
+                                      } else {
+                                        Get.to(HomeAdmin());
+                                      }
                                     } else {
-                                      Get.to(HomeAdmin());
+                                      final snackBar = SnackBar(
+                                        content: Text(value.responseMessage!),
+                                        backgroundColor: (Colors.red),
+                                        action: SnackBarAction(
+                                          label: 'fermer',
+                                          textColor: Colors.white,
+                                          onPressed: () {},
+                                        ),
+                                      );
+                                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
                                     }
-                                  } else {
-                                    final snackBar = SnackBar(
-                                      content: Text(value.responseMessage!),
-                                      backgroundColor: (Colors.red),
-                                      action: SnackBarAction(
-                                        label: 'fermer',
-                                        textColor: Colors.white,
-                                        onPressed: () {},
-                                      ),
-                                    );
-                                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                                  }
-                                });
+                                  });
+                                } else {
+                                  final snackBar = SnackBar(
+                                    content: Text("une erreur est survenue lors de la connexion "),
+                                    backgroundColor: (Colors.red),
+                                    action: SnackBarAction(
+                                      label: 'fermer',
+                                      textColor: Colors.white,
+                                      onPressed: () {},
+                                    ),
+                                  );
+                                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                                }
                               });
                             },
                             icon: Image.asset(

@@ -174,18 +174,31 @@ class _AddReclamationState extends State<AddReclamation> {
                   ? CircularProgressIndicator()
                   : TextButton(
                       onPressed: () {
-                        if (_formKey.currentState!.validate()) {
-                          setState(() {
-                            loading = true;
-                          });
-                          ReclamationsServices.createReclamation(
-                              subjectController.text, descController.text, priority, dep, _selectedImages, selectedUSer!.id!);
-                          setState(() {
-                            descController.clear();
-                            subjectController.clear();
+                        if (selectedUSer == null) {
+                          final snackBar = SnackBar(
+                            content: Text("Il faut indiquer le destinataire"),
+                            backgroundColor: (Colors.red),
+                            action: SnackBarAction(
+                              label: 'fermer',
+                              textColor: Colors.white,
+                              onPressed: () {},
+                            ),
+                          );
+                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                        } else {
+                          if (_formKey.currentState!.validate()) {
+                            setState(() {
+                              loading = true;
+                            });
+                            ReclamationsServices.createReclamation(model.subjectController.text, model.descriptionController.text,
+                                priority, dep, _selectedImages, selectedUSer!.id!);
+                            setState(() {
+                              model.descriptionController.clear();
+                              model.subjectController.clear();
 
-                            loading = false;
-                          });
+                              loading = false;
+                            });
+                          }
                         }
                       },
                       child: Text("Enregistrer", style: TextStyle(color: Colors.green, fontSize: 17))),

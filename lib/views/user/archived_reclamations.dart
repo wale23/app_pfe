@@ -242,7 +242,7 @@ class _ArchivedReclamationsState extends State<ArchivedReclamations> {
                                                     ),
                                                     Padding(
                                                       padding: const EdgeInsets.all(4.0),
-                                                      child: Text("${reclamations[index].sender.full_name}"),
+                                                      child: Text("${reclamations[index].receiver.full_name}"),
                                                     ),
                                                     Padding(
                                                         padding: EdgeInsets.symmetric(horizontal: 20),

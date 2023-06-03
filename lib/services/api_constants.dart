@@ -11,6 +11,7 @@ class ApiConstants {
   static String checkOtp = 'check-otp';
   static String changePassword = 'change-password';
   static String reclamations = 'reclamations';
+  static String receivedReclamations = 'reclamations/recu';
   static String comments = 'comments';
   static String delete = 'delete';
   static String archive = 'archive';
